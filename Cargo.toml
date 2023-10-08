@@ -8,8 +8,8 @@ license-file = "LICENSE"
 readme = "README.md"
 description = "Check if the current process is elevated. A successor to the `is_elevated` crate."
 
-homepage = "https://github.com/h4rl/check_elevation"
-repository = "https://github.com/h4rl/check_elevation"
+homepage = "https://github.com/h4rldev/check_elevation"
+repository = "https://github.com/h4rldev/check_elevation"
 
 keywords = ["windows", "winapi", "UAC", "elevate", "administrator"]
 categories = ["development-tools", "os::windows-apis", "os", "authentication"]
