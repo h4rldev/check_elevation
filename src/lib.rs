@@ -1,3 +1,5 @@
+#![no_std]
+
 use windows::Win32::{
     Foundation::HANDLE,
     Security::{
@@ -16,14 +18,14 @@ pub fn is_elevated() -> windows::core::Result<bool> {
         );
         match result {
             Ok(_) => {
-                let mut token_elevation: TOKEN_ELEVATION = std::mem::zeroed();
+                let mut token_elevation: TOKEN_ELEVATION = core::mem::zeroed();
                 let mut return_length = 0;
 
                 match GetTokenInformation(
                     h_token,
                     TokenElevation,
                     Some(&mut token_elevation as *mut _ as *mut _),
-                    std::mem::size_of::<TOKEN_ELEVATION>() as u32,
+                    core::mem::size_of::<TOKEN_ELEVATION>() as u32,
                     &mut return_length,
                 ) {
                     Ok(_) => {
