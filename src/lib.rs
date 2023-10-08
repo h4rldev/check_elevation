@@ -8,8 +8,7 @@ use windows::Win32::{
 
 pub fn is_elevated() -> windows::core::Result<bool> {
     unsafe {
-        let h_token_ptr = std::ptr::null_mut::<HANDLE>();
-        let mut h_token = *h_token_ptr;
+        let mut h_token: HANDLE = HANDLE(0 as _);
         let result = OpenProcessToken(
             GetCurrentProcess(),
             TOKEN_ACCESS_MASK(TOKEN_QUERY.0),
