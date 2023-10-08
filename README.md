@@ -1,5 +1,6 @@
 # check_elevation
 A tool to check the elevation status through a simple function.
+
 Inspired from "is_elevated".
 
 #### Dependencies
