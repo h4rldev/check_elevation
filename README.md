@@ -21,4 +21,3 @@ fn main() {
 #### Dependencies
 
 - [windows](https://crates.io/crates/windows)
-- [std](https://doc.rust-lang.org/std/)
