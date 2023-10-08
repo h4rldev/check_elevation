@@ -5,12 +5,11 @@ use windows::Win32::{
     },
     System::Threading::{GetCurrentProcess, OpenProcessToken},
 };
-use std::mem::transmute;
-
 
 pub fn is_elevated() -> windows::core::Result<bool> {
     unsafe {
-        let mut h_token = transmute::<*mut _, HANDLE>(std::ptr::null_mut::<HANDLE>());
+        let h_token_ptr = std::ptr::null_mut::<HANDLE>();
+        let mut h_token = *h_token_ptr;
         let result = OpenProcessToken(
             GetCurrentProcess(),
             TOKEN_ACCESS_MASK(TOKEN_QUERY.0),

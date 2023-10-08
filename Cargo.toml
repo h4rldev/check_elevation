@@ -1,6 +1,6 @@
 [package]
 name = "check_elevation"
-version = "0.1.3"
+version = "0.2.0"
 edition = "2021"
 
 authors = ["h4rl"]
