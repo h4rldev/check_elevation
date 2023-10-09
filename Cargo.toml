@@ -1,6 +1,6 @@
 [package]
 name = "check_elevation"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 
 authors = ["h4rl"]
@@ -12,6 +12,7 @@ homepage = "https://github.com/h4rldev/check_elevation"
 repository = "https://github.com/h4rldev/check_elevation"
 
 keywords = ["windows", "winapi", "UAC", "elevate", "administrator"]
+
 categories = [
   "development-tools",
   "os::windows-apis",
@@ -23,9 +24,8 @@ categories = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-windows = { version = "0.51.1", features = [
+windows = { version = "0.51.1", default-features = false, features = [
   "Win32_Foundation",
   "Win32_Security",
   "Win32_System_Threading",
-  "Win32_System_Memory",
 ] }
