@@ -12,7 +12,6 @@ homepage = "https://github.com/h4rldev/check_elevation"
 repository = "https://github.com/h4rldev/check_elevation"
 
 keywords = ["windows", "winapi", "UAC", "elevate", "administrator"]
-
 categories = [
   "development-tools",
   "os::windows-apis",
@@ -20,6 +19,8 @@ categories = [
   "authentication",
   "no-std",
 ]
+
+exclude = ["tests/**"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
