@@ -12,9 +12,13 @@ Successor to [is_elevated](https://crates.io/crates/is_elevated).
 ```rust
 use check_elevation::is_elevated;
 
+
 fn main() {
-    let elevation_status = is_elevated().expect("Failed to check elevation");
-    println!("Elevation Status: {}" elevation_status);
+    if is_elevated().expect("Failed to get elevation status.") {
+        println!("Running as administrator.");
+    } else {
+        println!("Not running as administrator.");
+    }
 }
 ```
 

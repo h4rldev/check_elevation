@@ -1,3 +1,20 @@
+//! Checks if the current Windows process is elevated.
+//! Returns true if the process is elevated, false if not.
+//! ## Example
+//! ```rust
+//! use check_elevation::is_elevated;
+//! fn main() {
+//!     if is_elevated().expect("Failed to get elevation status.") {
+//!         println!("Running as administrator.");
+//!     } else {
+//!         println!("Not running as administrator.");
+//!     }
+//! }
+//! ```
+//!
+//! made with ♥  by h4rl
+//! uses bsd-2-clause license
+
 #![no_std]
 
 use windows::Win32::{
@@ -7,22 +24,6 @@ use windows::Win32::{
     },
     System::Threading::{GetCurrentProcess, OpenProcessToken},
 };
-/*
-Checks if the current Windows process is elevated.
-Returns true if the process is elevated, false if not.
-Example:
-```rust
-use check_elevation::is_elevated;
-
-fn main() {
-    if is_elevated().expect("Failed to get elevation status.") {
-        println!("Running as administrator.");
-    } else {
-        println!("Not running as administrator.");
-    }
-}
-```
-*/
 
 pub fn is_elevated() -> windows::core::Result<bool> {
     unsafe {
