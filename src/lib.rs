@@ -3,12 +3,11 @@
 //! ## Example
 //! ```rust
 //! use check_elevation::is_elevated;
-//! fn main() {
-//!     if is_elevated().expect("Failed to get elevation status.") {
-//!         println!("Running as administrator.");
-//!     } else {
-//!         println!("Not running as administrator.");
-//!     }
+//!
+//! if is_elevated().expect("Failed to get elevation status.") {
+//!     println!("Running as administrator.");
+//! } else {
+//!     println!("Not running as administrator.");
 //! }
 //! ```
 //!
@@ -18,7 +17,7 @@
 #![no_std]
 
 use windows::Win32::{
-    Foundation::HANDLE,
+    Foundation::{CloseHandle, HANDLE},
     Security::{
         GetTokenInformation, TokenElevation, TOKEN_ACCESS_MASK, TOKEN_ELEVATION, TOKEN_QUERY,
     },
@@ -47,8 +46,10 @@ pub fn is_elevated() -> windows::core::Result<bool> {
                 ) {
                     Ok(_) => {
                         if token_elevation.TokenIsElevated != 0 {
+                            CloseHandle(h_token)?;
                             Ok(true)
                         } else {
+                            CloseHandle(h_token)?;
                             Ok(false)
                         }
                     }
