@@ -45,13 +45,8 @@ pub fn is_elevated() -> windows::core::Result<bool> {
                     &mut return_length,
                 ) {
                     Ok(_) => {
-                        if token_elevation.TokenIsElevated != 0 {
-                            CloseHandle(h_token)?;
-                            Ok(true)
-                        } else {
-                            CloseHandle(h_token)?;
-                            Ok(false)
-                        }
+                        CloseHandle(h_token)?;
+                        Ok(token_elevation.TokenIsElevated != 0)
                     }
                     Err(e) => Err(e),
                 }

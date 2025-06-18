@@ -1,6 +1,7 @@
 [package]
 name = "check_elevation"
-version = "0.2.5"
+version = "0.2.6"
+rust-version = "1.56.1"
 edition = "2021"
 
 authors = ["h4rl"]
