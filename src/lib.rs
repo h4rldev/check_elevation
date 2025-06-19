@@ -48,10 +48,16 @@ pub fn is_elevated() -> windows::core::Result<bool> {
                         CloseHandle(h_token)?;
                         Ok(token_elevation.TokenIsElevated != 0)
                     }
-                    Err(e) => Err(e),
+                    Err(e) => {
+                        CloseHandle(h_token)?;
+                        Err(e)
+                    }
                 }
             }
-            Err(e) => Err(e),
+            Err(e) => {
+                CloseHandle(h_token)?;
+                Err(e)
+            }
         }
     }
 }
