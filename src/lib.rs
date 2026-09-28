@@ -18,46 +18,31 @@
 
 use windows::Win32::{
     Foundation::{CloseHandle, HANDLE},
-    Security::{
-        GetTokenInformation, TokenElevation, TOKEN_ACCESS_MASK, TOKEN_ELEVATION, TOKEN_QUERY,
-    },
+    Security::{GetTokenInformation, TOKEN_ELEVATION, TOKEN_QUERY, TokenElevation},
     System::Threading::{GetCurrentProcess, OpenProcessToken},
 };
 
 pub fn is_elevated() -> windows::core::Result<bool> {
     unsafe {
-        let mut h_token: HANDLE = HANDLE(0 as _);
-        let result = OpenProcessToken(
-            GetCurrentProcess(),
-            TOKEN_ACCESS_MASK(TOKEN_QUERY.0),
-            &mut h_token,
-        );
-        match result {
-            Ok(_) => {
-                let mut token_elevation: TOKEN_ELEVATION = core::mem::zeroed();
-                let mut return_length = 0;
-
-                match GetTokenInformation(
-                    h_token,
-                    TokenElevation,
-                    Some(&mut token_elevation as *mut _ as *mut _),
-                    core::mem::size_of::<TOKEN_ELEVATION>() as u32,
-                    &mut return_length,
-                ) {
-                    Ok(_) => {
-                        CloseHandle(h_token)?;
-                        Ok(token_elevation.TokenIsElevated != 0)
-                    }
-                    Err(e) => {
-                        CloseHandle(h_token)?;
-                        Err(e)
-                    }
-                }
-            }
-            Err(e) => {
-                CloseHandle(h_token)?;
-                Err(e)
-            }
+        let mut h_token = HANDLE(0 as _);
+        if let Err(error) = OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &raw mut h_token) {
+            CloseHandle(h_token)?;
+            return Err(error);
         }
+
+        let mut token_elevation = core::mem::zeroed::<TOKEN_ELEVATION>();
+        if let Err(error) = GetTokenInformation(
+            h_token,
+            TokenElevation,
+            Some(core::ptr::addr_of_mut!(token_elevation).cast()),
+            u32::try_from(size_of::<TOKEN_ELEVATION>())?,
+            &mut 0,
+        ) {
+            CloseHandle(h_token)?;
+            return Err(error);
+        }
+
+        CloseHandle(h_token)?;
+        Ok(token_elevation.TokenIsElevated != 0)
     }
 }
