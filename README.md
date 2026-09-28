@@ -24,4 +24,4 @@ fn main() {
 
 #### Dependencies
 
-- [windows](https://crates.io/crates/windows)
+- [windows-sys](https://crates.io/crates/windows-sys)

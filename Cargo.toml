@@ -1,11 +1,11 @@
 [package]
 name = "check_elevation"
-version = "0.2.7"
+version = "0.3.0"
 rust-version = "1.56.1"
 edition = "2021"
 
 authors = ["h4rl"]
-license = "BSD-2-Clause"
+license = "BSD-3-Clause"
 readme = "README.md"
 description = "Check if the current process is elevated. A successor to the `is_elevated` crate. Now no_std!"
 
@@ -21,12 +21,12 @@ categories = [
   "no-std",
 ]
 
-exclude = ["tests/**", ".gitignore"]
+exclude = ["tests/**", ".gitignore", "flake.*", ".envrc"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-windows = { version = "0.51.1", default-features = false, features = [
+windows-sys = { version = "0.52.0", default-features = false, features = [
   "Win32_Foundation",
   "Win32_Security",
   "Win32_System_Threading",
